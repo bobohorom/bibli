@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BibliPartage</title>
+    <meta name="description" content="Gérez votre bibliothèque personnelle et partagez vos livres avec vos amis">
+    <meta name="theme-color" content="#13a4ec" />
+    <link rel="manifest" href="./manifest.webmanifest" type="application/manifest+json" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="./static/favicon.svg" />
+    <link rel="stylesheet" href="./static/site.css" />
+    <style>
+      .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+      body { font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header-bar">
+        <span class="material-symbols-outlined icon brand-icon">import_contacts</span>
+        <a href="#/" class="brand">BibliPartage</a>
+
+        <!-- Navigation desktop -->
+        <nav class="nav-desktop">
+          <a href="#/library" aria-label="Ma bibliothèque" class="nav-link">
+            <span class="material-symbols-outlined">menu_book</span>
+            <span>Ma bibliothèque</span>
+          </a>
+          <a href="#/scan" aria-label="Scanner" class="nav-link">
+            <span class="material-symbols-outlined">qr_code_scanner</span>
+            <span>Scanner</span>
+          </a>
+          <a href="#/add" aria-label="Ajouter" class="nav-link">
+            <span class="material-symbols-outlined">library_add</span>
+            <span>Ajouter</span>
+          </a>
+          <a href="#/friends" aria-label="Amis et prêts" class="nav-link">
+            <span class="material-symbols-outlined">groups</span>
+            <span>Amis & prêts</span>
+          </a>
+        </nav>
+
+        <!-- Bouton hamburger (mobile) -->
+        <button id="mobile-menu-btn" class="hamburger" aria-label="Menu">
+          <span class="material-symbols-outlined icon sm">menu</span>
+        </button>
+      </div>
+
+      <!-- Menu mobile -->
+      <nav id="mobile-menu" class="mobile-menu hidden">
+        <div class="container menu-list">
+          <a href="#/library">
+            <span class="material-symbols-outlined">menu_book</span>
+            <span>Ma bibliothèque</span>
+          </a>
+          <a href="#/scan">
+            <span class="material-symbols-outlined">qr_code_scanner</span>
+            <span>Scanner</span>
+          </a>
+          <a href="#/add">
+            <span class="material-symbols-outlined">library_add</span>
+            <span>Ajouter</span>
+          </a>
+          <a href="#/friends">
+            <span class="material-symbols-outlined">groups</span>
+            <span>Amis & prêts</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <script>
+      // Toggle menu mobile
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+          const icon = menuBtn.querySelector('.material-symbols-outlined');
+          icon.textContent = mobileMenu.classList.contains('hidden') ? 'menu' : 'close';
+        });
+      }
+    </script>
+
+    <main id="app" class="container main">
+      <!-- Le contenu sera injecté par le router -->
+    </main>
+
+    <!-- Bannière d'installation PWA -->
+    <div id="install-banner" class="install-banner hidden" role="dialog" aria-label="Installer l'application">
+      <span class="material-symbols-outlined icon">install_mobile</span>
+      <div class="install-text">
+        <strong>Installer BibliPartage</strong>
+        <small>Ajoutez l'application à votre écran d'accueil pour un accès rapide.</small>
+        <small id="ios-install-hint" class="hidden">Sur iPhone/iPad : ouvrez le menu Partager puis "Sur l'écran d'accueil".</small>
+      </div>
+      <div class="install-actions">
+        <button id="install-btn" class="btn btn-primary" type="button">Installer</button>
+        <button id="install-close" class="btn btn-outline" type="button" aria-label="Fermer l'invitation">Plus tard</button>
+      </div>
+    </div>
+
+    <!-- Service Worker -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW registration failed', err));
+        });
+      }
+    </script>
+
+    <!-- Router et PWA -->
+    <script defer src="./static/js/router.js"></script>
+    <script defer src="./static/js/pwa.js"></script>
+    
+    <footer class="footer">© 2025 BibliPartage</footer>
+  </body>
+</html>

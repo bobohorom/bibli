@@ -1,0 +1,63 @@
+:root{
+  --brand:#13a4ec;
+  --brand-hover:#1195d6;
+  --text:#0d171b;
+  --text-muted:#4c809a;
+  --border:#cfdfe7;
+  --bg:#f6f7f8;
+}
+
+/* Layout helpers */
+.welcome-hero{padding:16px;}
+.hero{
+  width:100%;
+  min-height:300px;
+  max-height:500px;
+  border-radius:12px;
+  overflow:hidden;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+.hero--welcome{
+  background-image:url("https://lh3.googleusercontent.com/aida-public/AB6AXuAWBze04Ro0yWz-LAgYgc43RGP9DPMClJ-n9jrQt-k8nekYoscq5TCj-gyyPRKxXp5Bhtq160fjSkfLo4VWh6ClFgr-ywCOxCbSrEibZxjuvVjNsd5xnY_hvTcPHDOCscDLOY8B7R9dx0t80UIb_XBbsBlA5pmtWpkUTy0LHu82t0u0rywdOG7yuzThd9oB827xT1U8mxQzq9dAKfuWRjBnRbpn3nU3067Vo9AJNMGnHB7g9T_RtPGSUFuyE_14SmhUJDODXSAXLfr1");
+}
+
+.headline{margin:16px 0 0;text-align:center;padding:0 1%;}
+.headline-link{display:block;text-decoration:none;color:inherit;}
+.headline h1{
+  color:var(--text);
+  font-size:32px;
+  font-weight:700;
+  line-height:1.2;
+  margin:0;
+  transition:color .2s ease;
+}
+.headline p{
+  color:var(--text-muted);
+  font-size:16px;
+  line-height:1.5;
+  margin:6px 0 0;
+  transition:color .2s ease;
+}
+.headline-link:hover h1{color:var(--brand-hover);} 
+.headline-link:hover p{color:rgba(13,23,27,.8);} 
+
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;padding:16px 1%;}
+
+.card{display:flex;flex-direction:column;gap:12px;border:1px solid var(--border);background:#fff;padding:16px;border-radius:10px;color:inherit;text-decoration:none;transition:background-color .2s,color .2s,border-color .2s;}
+.card:hover{background:var(--brand);color:#fff;border-color:var(--brand);} 
+.card .icon{color:var(--brand);transition:color .2s ease;}
+.card:hover .icon{color:#fff;}
+.card h2{font-size:16px;font-weight:700;color:var(--text);margin:0;line-height:1.2;transition:color .2s ease;}
+.card p{font-size:14px;color:var(--text-muted);margin:0;transition:color .2s ease;}
+.card:hover h2,.card:hover p{color:#fff;}
+
+/* Focus accessibility */
+a.card:focus{outline:2px solid var(--brand);outline-offset:2px;border-radius:10px;}
+
+/* Small spacing tweak for very narrow screens */
+@media (max-width:400px){
+  .features{gap:10px;padding:12px;}
+  .headline{margin-top:12px;}
+}
