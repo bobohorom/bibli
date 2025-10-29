@@ -1,5 +1,5 @@
 /* Service Worker for BibliPartage - Static PWA */
-const CACHE_NAME = 'bp-cache-v7';
+const CACHE_NAME = 'bp-cache-v8';
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -87,7 +87,10 @@ self.addEventListener('fetch', (event) => {
     caches.match(req).then((cached) => {
       const fetchPromise = fetch(req).then((res) => {
         const resClone = res.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+        // Only cache http/https requests (exclude chrome-extension, etc.)
+        if (req.url.startsWith('http')) {
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+        }
         return res;
       }).catch(() => null);
       
