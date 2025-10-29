@@ -60,11 +60,8 @@ async function main() {
     const cover_url = el('#cover_url', form).value.trim();
     const description = el('#description', form).value.trim();
 
-    console.log('[confirm.js] Confirmation et ajout:', { title, author, isbn, cover_url, description });
-    
     showLoader();
     const res = await dbAPI.addBook(title, author, isbn, cover_url, description);
-    console.log('[confirm.js] Résultat addBook:', res);
     
     if (!res.ok) {
       toast(res.error, 'error');

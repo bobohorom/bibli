@@ -1,5 +1,5 @@
 /* Service Worker for BibliPartage */
-const CACHE_NAME = 'bp-cache-v6';
+const CACHE_NAME = 'bp-cache-v7';
 const CORE_ASSETS = [
   '/',
   '/library',
@@ -45,12 +45,20 @@ self.addEventListener('fetch', (event) => {
   const req = event.request;
   const url = new URL(req.url);
 
+  // Skip non-http/https requests (chrome-extension, etc.)
+  if (!req.url.startsWith('http')) {
+    return;
+  }
+
   // Ensure manifest is always served as a static asset (cache-first)
   if (url.pathname.endsWith('/manifest.webmanifest') || url.pathname === '/manifest.webmanifest') {
     event.respondWith(
       caches.match(req).then((cached) => cached || fetch(req).then((res) => {
         const resClone = res.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+        // Only cache http/https requests (exclude chrome-extension, etc.)
+        if (req.url.startsWith('http')) {
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+        }
         return res;
       }))
     );
@@ -63,7 +71,10 @@ self.addEventListener('fetch', (event) => {
       caches.match(req).then((cached) => {
         const fetchPromise = fetch(req).then((res) => {
           const resClone = res.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+          // Only cache http/https requests (exclude chrome-extension, etc.)
+          if (req.url.startsWith('http')) {
+            caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+          }
           return res;
         }).catch(() => null);
         
@@ -79,7 +90,10 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       caches.match(req).then((cached) => cached || fetch(req).then((res) => {
         const resClone = res.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+        // Only cache http/https requests (exclude chrome-extension, etc.)
+        if (req.url.startsWith('http')) {
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+        }
         return res;
       }).catch(() => cached))
     );

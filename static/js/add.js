@@ -19,10 +19,8 @@ async function main() {
     const cover_url = el('input[name="cover_url"]', form).value.trim();
     const description = el('textarea[name="description"]', form).value.trim();
 
-    console.log('[add.js] Tentative d\'ajout:', { title, author, isbn, cover_url, description });
     showLoader();
     const res = await dbAPI.addBook(title, author, isbn, cover_url, description);
-    console.log('[add.js] Résultat addBook:', res);
     if (!res.ok) return toast(res.error, 'error');
 
     toast('Livre ajouté à votre bibliothèque.', 'success');

@@ -164,17 +164,10 @@ export const dbAPI = {
   },
   async addBook(title, author, isbn, cover_url, description) {
     if (!title || !title.trim()) return { ok: false, error: 'Titre manquant' };
-    console.log('[db.js] addBook INSERT avec:', { title: title.trim(), author, isbn, cover_url, description });
     exec('INSERT INTO books (title, author, isbn, cover_url, description) VALUES (?, ?, ?, ?, ?)', 
       [title.trim(), author || '', isbn || '', cover_url || '', description || '']);
     await saveDB();
-    console.log('[db.js] Après saveDB, recherche du livre ajouté...');
     const row = query('SELECT * FROM books WHERE title = ? ORDER BY id DESC LIMIT 1', [title.trim()])[0];
-    console.log('[db.js] Livre trouvé après ajout:', row);
-    
-    // Vérifier tous les livres après ajout
-    const allBooks = query('SELECT * FROM books ORDER BY id DESC');
-    console.log('[db.js] Total livres en DB après ajout:', allBooks.length, allBooks);
     
     return { ok: true, book: row };
   },

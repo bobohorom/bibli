@@ -6,12 +6,9 @@ function el(sel, root=document){ return root.querySelector(sel); }
 
 async function renderBooks(query = '') {
   try {
-    console.log('[library] renderBooks start', { query });
     const books = await dbAPI.listBooks(query);
-    console.log('[library] books length', books?.length, books);
     const exchangeIds = await dbAPI.exchangeBookIds();
     const grid = el('#booksGrid');
-    console.log('[library] grid found', !!grid);
     if (!grid) return;
     
     grid.innerHTML = '';
@@ -79,7 +76,6 @@ async function main() {
   try {
     showLoader();
     await initClientDB();
-    console.log('DB initialisée pour library.js');
   } catch (err) {
     console.error('Erreur init DB:', err);
     toast('Erreur lors de l\'initialisation de la base de données', 'error');
@@ -112,6 +108,20 @@ async function main() {
     });
   }
   try { await renderBooks(searchInput?.value || ''); } finally { hideLoader(); }
+  
+  // Wire export/import buttons
+  const exportBtn = el('#exportDB');
+  if (exportBtn) {
+    exportBtn.addEventListener('click', handleExportDB);
+  }
+  
+  const importInput = el('#importDB');
+  if (importInput) {
+    importInput.addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (file) handleImportDB(file);
+    });
+  }
 }
 
 // Export DB handler
@@ -164,19 +174,3 @@ if (document.readyState === 'loading'){
 }else{
   main();
 }
-
-// Wire export/import buttons after DOM ready
-document.addEventListener('DOMContentLoaded', () => {
-  const exportBtn = el('#exportDB');
-  if (exportBtn) {
-    exportBtn.addEventListener('click', handleExportDB);
-  }
-  
-  const importInput = el('#importDB');
-  if (importInput) {
-    importInput.addEventListener('change', (e) => {
-      const file = e.target.files?.[0];
-      if (file) handleImportDB(file);
-    });
-  }
-});

@@ -1,5 +1,5 @@
 /* Service Worker for BibliPartage - Static PWA */
-const CACHE_NAME = 'bp-cache-v8';
+const CACHE_NAME = 'bp-cache-v9';
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -41,6 +41,11 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   const url = new URL(req.url);
+
+  // Skip non-http/https requests (chrome-extension, etc.)
+  if (!req.url.startsWith('http')) {
+    return;
+  }
 
   // Ensure manifest is always served as a static asset (cache-first)
   if (url.pathname.endsWith('/manifest.webmanifest') || url.pathname === '/manifest.webmanifest') {
