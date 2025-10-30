@@ -1,6 +1,6 @@
 // ES module for Library page (client-side rendering)
-import { initClientDB, dbAPI, exportDB, importDB } from '/static/js/db.js';
-import { toast, showLoader, hideLoader } from '/static/js/ui.js';
+import { initClientDB, dbAPI, exportDB, importDB } from './db.js';
+import { toast, showLoader, hideLoader } from './ui.js';
 
 function el(sel, root=document){ return root.querySelector(sel); }
 
@@ -32,12 +32,12 @@ async function renderBooks(query = '') {
       
       const img = document.createElement('img');
       img.className = 'book-cover';
-      img.src = b.cover_url || '/static/nocover300x450.svg';
+      img.src = b.cover_url || '../nocover300x450.svg';
       img.alt = b.title;
       img.loading = 'lazy'; // Lazy loading pour performance
       // Force dimensions even if image fails to load
       img.onerror = function() {
-        this.src = '/static/nocover300x450.svg';
+        this.src = '../nocover300x450.svg';
       };
       
       const body = document.createElement('div');

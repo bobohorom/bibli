@@ -1,6 +1,6 @@
 // ES module for Add book page (client-side)
-import { initClientDB, dbAPI } from '/static/js/db.js';
-import { toast, showLoader, hideLoader } from '/static/js/ui.js';
+import { initClientDB, dbAPI } from './db.js';
+import { toast, showLoader, hideLoader } from './ui.js';
 
 function el(sel, root=document){ return root.querySelector(sel); }
 

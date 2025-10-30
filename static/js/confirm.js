@@ -1,7 +1,7 @@
 // ES module for Confirm book page (client-side)
-import { initClientDB, dbAPI } from '/static/js/db.js';
-import { toast, showLoader, hideLoader } from '/static/js/ui.js';
-import { fetchBookByISBN } from '/static/js/isbn.js';
+import { initClientDB, dbAPI } from './db.js';
+import { toast, showLoader, hideLoader } from './ui.js';
+import { fetchBookByISBN } from './isbn.js';
 
 function el(sel, root=document){ return root.querySelector(sel); }
 
@@ -40,7 +40,7 @@ async function main() {
     // Mettre à jour l'aperçu de la couverture
     const coverImg = document.querySelector('.cover-preview');
     if (coverImg) {
-      coverImg.src = bookData.cover_url || '/static/nocover300x450.svg';
+      coverImg.src = bookData.cover_url || '../nocover300x450.svg';
       coverImg.alt = 'Couverture';
     }
     

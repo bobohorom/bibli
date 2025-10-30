@@ -1,6 +1,6 @@
 // ES module for Book detail page (client-side rendering)
-import { initClientDB, dbAPI } from '/static/js/db.js';
-import { toast, showLoader, hideLoader } from '/static/js/ui.js';
+import { initClientDB, dbAPI } from './db.js';
+import { toast, showLoader, hideLoader } from './ui.js';
 
 function el(sel, root=document){ return root.querySelector(sel); }
 
@@ -34,12 +34,12 @@ async function renderBook() {
   // Render image
   const img = el('#bookCover');
   if (img) {
-    img.src = book.cover_url || '/static/nocover300x450.svg';
+    img.src = book.cover_url || '../nocover300x450.svg';
     img.alt = 'Couverture';
     img.className = 'cover-preview rounded'; // Ensure classes are applied
     img.loading = 'lazy';
     img.onerror = function() {
-      this.src = '/static/nocover300x450.svg';
+      this.src = '../nocover300x450.svg';
     };
   }
 

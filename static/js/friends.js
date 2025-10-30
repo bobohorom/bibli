@@ -1,6 +1,6 @@
 // ES module to wire the Friends page to client-side DB
-import { initClientDB, dbAPI } from '/static/js/db.js';
-import { toast, showLoader, hideLoader } from '/static/js/ui.js';
+import { initClientDB, dbAPI } from './db.js';
+import { toast, showLoader, hideLoader } from './ui.js';
 
 function el(sel, root=document){ return root.querySelector(sel); }
 function els(sel, root=document){ return Array.from(root.querySelectorAll(sel)); }

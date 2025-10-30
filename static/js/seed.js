@@ -18,7 +18,7 @@
   }
   
   // Importer et initialiser la DB
-  const { initClientDB, dbAPI } = await import('/static/js/db.js');
+  const { initClientDB, dbAPI } = await import('./db.js');
   await initClientDB();
   console.log('✅ DB initialisée');
   
