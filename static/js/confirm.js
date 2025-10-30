@@ -20,7 +20,7 @@ async function main() {
     
     if (!isbn) {
       toast('ISBN manquant.', 'error');
-      setTimeout(() => window.location.href = '/scan', 1500);
+      setTimeout(() => window.location.hash = '#/scan', 1500);
       return;
     }
     
@@ -70,7 +70,7 @@ async function main() {
     }
 
     toast('Livre ajouté à votre bibliothèque.', 'success');
-    setTimeout(() => window.location.href = '/library', 1000);
+    setTimeout(() => window.location.hash = '#/library', 1000);
     hideLoader();
   });
 }

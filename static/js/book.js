@@ -14,14 +14,14 @@ async function renderBook() {
   const bookId = getBookIdFromURL();
   if (!bookId) {
     toast('Livre introuvable', 'error');
-    setTimeout(() => window.location.href = '/library', 1500);
+    setTimeout(() => window.location.hash = '#/library', 1500);
     return;
   }
 
   const book = await dbAPI.getBook(bookId);
   if (!book) {
     toast('Livre introuvable - redirection vers la bibliothèque...', 'error');
-    setTimeout(() => window.location.href = '/library', 1500);
+    setTimeout(() => window.location.hash = '#/library', 1500);
     return;
   }
 
@@ -100,7 +100,7 @@ async function renderBook() {
           const res = await dbAPI.deleteBook(bookId);
           if (!res.ok) { toast(res.error, 'error'); return; }
           toast('Livre supprimé.', 'success');
-          setTimeout(() => window.location.href = '/library', 1000);
+          setTimeout(() => window.location.hash = '#/library', 1000);
         } finally {
           hideLoader();
         }

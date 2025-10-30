@@ -24,7 +24,7 @@ async function renderBooks(query = '') {
       // Guard types for id (string vs number)
       const inExchange = exchangeIds.has(Number(b.id));
       const card = document.createElement('a');
-      card.href = `/book/${b.id}`;
+      card.href = `#/book/${b.id}`;
       card.className = 'book';
       if (inExchange) {
         card.classList.add('book-in-exchange');

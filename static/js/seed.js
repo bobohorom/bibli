@@ -53,7 +53,7 @@
   await dbAPI.addFriend('Charlie');
   
   console.log('✅ Seed terminé ! Redirection vers la bibliothèque...');
-  setTimeout(() => window.location.href = '/library', 1500);
+  setTimeout(() => window.location.hash = '#/library', 1500);
 })().catch(err => {
   console.error('❌ Erreur pendant le seed:', err);
 });

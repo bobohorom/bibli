@@ -24,7 +24,7 @@ async function main() {
     if (!res.ok) return toast(res.error, 'error');
 
     toast('Livre ajouté à votre bibliothèque.', 'success');
-    setTimeout(() => window.location.href = '/library', 1000);
+    setTimeout(() => window.location.hash = '#/library', 1000);
     hideLoader();
   });
 }
