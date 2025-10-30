@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redirection - BibliPartage</title>
+  <script>
+    // Redirection automatique pour GitHub Pages SPA
+    // Convertit /book/1 vers /#/book/1
+    const path = window.location.pathname;
+    const hash = window.location.hash;
+    
+    // Si on est sur une route sans hash, rediriger vers index.html avec le hash
+    if (path !== '/' && !hash) {
+      const newPath = path.startsWith('/bibli/') ? path.replace('/bibli', '') : path;
+      window.location.replace(window.location.origin + '/bibli/#' + newPath);
+    } else if (path === '/bibli/404.html' || path === '/404.html') {
+      // Si on arrive sur 404.html directement, aller à l'accueil
+      window.location.replace(window.location.origin + '/bibli/');
+    }
+  </script>
+</head>
+<body>
+  <p>Redirection en cours...</p>
+</body>
+</html>
